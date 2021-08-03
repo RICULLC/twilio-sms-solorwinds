@@ -2,7 +2,7 @@ const express = require('express');
 const twilio = require('twilio');
 
 const app = express()
-const port = 3000
+const port = process.env.PORT ? 3000 : 80
 
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
