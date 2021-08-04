@@ -6,6 +6,11 @@ TWILIO_AUTH_TOKEN=8######################
 TWILIO_NUMBER=+1#######
 PORT=####
 
+### running application in local
+* install node(latest) if it is not installed, run the following commands 
+> npm install
+> npm run start_dev
+
 ### Heroku deployment 
 
 * in command line 
