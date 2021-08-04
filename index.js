@@ -24,7 +24,9 @@ router.post('/send_sms', (req, res) => {
             .create({
                 body: message,
                 to: recipient, // Text this number
+                // to: `whatsapp:${recipient}`, // whatsapp this number
                 from: process.env.TWILIO_NUMBER, // From a valid Twilio number
+                // from: `whatsapp:${process.env.TWILIO_NUMBER}`, // From a valid Twilio whatsapp number
             })
         }))
     .then((message) => {
