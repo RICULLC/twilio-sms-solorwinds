@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+// API to send the regular text message 
 router.post('/send_sms', (req, res) => {
     const { message, recipients } = req.body
     Promise.all(
@@ -24,9 +25,29 @@ router.post('/send_sms', (req, res) => {
             .create({
                 body: message,
                 to: recipient, // Text this number
-                // to: `whatsapp:${recipient}`, // whatsapp this number
-                from: process.env.TWILIO_NUMBER, // From a valid Twilio number
-                // from: `whatsapp:${process.env.TWILIO_NUMBER}`, // From a valid Twilio whatsapp number
+                from: process.env.TWILIO_NUMBER, // From a valid Twilio number need to configure in ENV variables
+            })
+        }))
+    .then((message) => {
+        console.log('message sent')
+        res.send(message.sid)
+    })
+    .catch(err => {
+        console.log(err)
+        res.send(err.message)
+    })  
+})
+
+// API to send the whatsapp text message 
+router.post('/send_whatsapp', (req, res) => {
+    const { message, recipients } = req.body
+    Promise.all(
+        recipients.map(recipient => {
+            client.messages
+            .create({
+                body: message,
+                to: `whatsapp:${recipient}`, // whatsapp this number
+                from: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`, // From a valid Twilio whatsapp number need to configure in ENV variables
             })
         }))
     .then((message) => {
